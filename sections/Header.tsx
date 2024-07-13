@@ -8,11 +8,15 @@ export interface CTA {
   text: string;
   outline?: boolean;
 }
-
+// export interface ImageWidget {
+//   src: string;
+//   alt: string;
+// }
 export interface Nav {
   logo?: {
     src?: ImageWidget;
     alt?: string;
+    name?:string;
   };
   navigation?: {
     links: {
@@ -26,14 +30,15 @@ export interface Nav {
 export default function Header({
   logo = {
     src:
-      "https://ozksgdmyrqcxcwhnbepg.supabase.co/storage/v1/object/public/assets/1527/67120bcd-936a-4ea5-a760-02ed5c4a3d04",
+      "https://img.freepik.com/free-vector/butterfly-logo-colorful-gradient-illustrations_483537-972.jpg?size=338&ext=jpg&ga=GA1.1.2008272138.1720742400&semt=ais_user",
     alt: "Logo",
+    name: "Junivas"
   },
   navigation = {
     links: [
       { label: "Home", url: "/" },
-      { label: "About us", url: "/" },
-      { label: "Princing", url: "/" },
+      { label: "About us", url: "/a" },
+      { label: "Pricing", url: "/" },
       { label: "Contact", url: "/" },
     ],
     buttons: [
@@ -47,15 +52,16 @@ export default function Header({
       <input id="mobile-drawer-nav" type="checkbox" class="drawer-toggle" />
 
       {/* main content */}
-      <div class="drawer-content container lg:px-0 px-4 flex gap-8 items-center justify-between py-4">
-        <a href="/">
-          <Image src={logo.src || ""} width={100} height={28} alt={logo.alt} />
+      <div class="drawer-content container lg:px-0 px-4 flex items-center justify-between py-4">
+        <a href="/" class="flex items-center gap-2">
+          <Image src={logo.src || ""} width={100} height={0} alt={logo.alt} />
+          {logo.name && <span class="text-lg font-bold">{logo.name}</span>}
         </a>
 
-        <div class="hidden items-center justify-between lg:flex w-full">
-          <ul class="flex">
-            {navigation.links.map((link) => (
-              <li>
+        <div class="hidden lg:flex items-center justify-between w-full">
+          <ul class="flex space-x-4">
+            {navigation.links.map((link, index) => (
+              <li key={index}>
                 <a
                   href={link.url}
                   aria-label={link.label}
@@ -66,7 +72,7 @@ export default function Header({
               </li>
             ))}
           </ul>
-          <ul class="flex gap-3">
+          <ul class="flex space-x-3">
             {navigation.buttons?.map((item) => (
               <a
                 key={item?.id}
@@ -101,18 +107,19 @@ export default function Header({
         />
 
         <div class="flex flex-col gap-8 min-h-full w-80 bg-base-100 text-base-content">
-          <a class="p-4" href="/">
+          <a class="p-4 flex items-center gap-2" href="/">
             <Image
               src={logo.src || ""}
               width={100}
-              height={28}
+              height={0}
               alt={logo.alt}
             />
+            {logo.name && <span class="text-lg font-bold">{logo.name}</span>}
           </a>
 
           <ul class="menu">
-            {navigation?.links.map((link) => (
-              <li>
+            {navigation?.links.map((link, index) => (
+              <li key={index}>
                 <a href={link.url} aria-label={link.label}>
                   {link.label}
                 </a>
